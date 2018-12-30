@@ -1,7 +1,7 @@
 
-const utils = require("../utils");
+const { readFile, makePath, testEqual } = require("../utils");
 
-let input = utils.readFile(utils.makePath(__dirname, "input.txt")).split("\r\n")
+let input = readFile(makePath(__dirname, "input.txt")).split("\r\n")
 
 two()
 function two() {
@@ -23,12 +23,17 @@ function two() {
     const endTime = Date.now()
     console.log("result", res, endTime-startTime + "ms")
   }
+
+// console.log(one(input))
+// testOne()
+function testOne() {
+  testEqual("gives correct answer", one(input), 561)
 }
-// one()
-function one() {
-  const result = input.reduce((sum, n) => {
-    return parseInt(n) + sum
+function one(input = []) {
+  const result = input.reduce(function sumInputs(sum, input) {
+    return parseInt(input) + sum
   }, 0)
 
-  console.log(result)
+  return result
 }
+
