@@ -11,7 +11,12 @@ function readFile(filePath) {
   return contents
 }
 
+function testEqual(name, actual, expected) {
+  if(actual !== expected) console.error(`\nTest "${name}" failed, should be ${expected}, got ${actual}\n`)
+}
+
 module.exports = {
   readFile,
-  makePath
+  makePath,
+  testEqual
 }
