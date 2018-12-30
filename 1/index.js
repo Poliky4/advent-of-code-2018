@@ -3,26 +3,30 @@ const { readFile, makePath, testEqual } = require("../utils");
 
 let input = readFile(makePath(__dirname, "input.txt")).split("\r\n")
 
-two()
-function two() {
-  const freqs = {}
+// console.log(two(input))
+// testTwo()
+function testTwo() {
+  testEqual("gives correct answer", two(input), 563)
+}
+function two(input) {
+  const uniqueFrequencies = new Set()
   let freq = 0
-  let rounds = 0
-  const startTime = Date.now()
-  try {
-    while (true) {
-      console.log('rounds', ++rounds)
-      input.forEach(n => {
-        freq += parseInt(n)
-        freqs[freq] = freqs[freq] ? freqs[freq] + 1 : 1
-        if (freqs[freq] === 2)
-          throw freq
-      })
-    }
-  } catch (res) {
-    const endTime = Date.now()
-    console.log("result", res, endTime-startTime + "ms")
+  let match = null
+  while (!match) {
+    input.forEach(n => {
+      if (!!match) return
+
+      freq += parseInt(n)
+
+      if (uniqueFrequencies.has(freq))
+        match = freq
+      else
+        uniqueFrequencies.add(freq)
+    })
   }
+
+  return match
+}
 
 // console.log(one(input))
 // testOne()
